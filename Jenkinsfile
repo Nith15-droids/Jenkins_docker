@@ -6,7 +6,7 @@ pipeline {
         DOCKER_IMAGE = 'nith15/tomcatweb'
         IMAGE_TAG = 'latest'
         CONTAINER_NAME = 'my-tom-container'
-        APP_PORT = '5000'
+        APP_PORT = '80'
     }
 
     stages {
@@ -105,11 +105,8 @@ pipeline {
                         docker stop %CONTAINER_NAME% 2>NUL
                         docker rm %CONTAINER_NAME% 2>NUL
 
-                        docker run -d ^
-                            --name %CONTAINER_NAME% ^
-                            -p %APP_PORT%:%APP_PORT% ^
-                            %DOCKER_IMAGE%:%IMAGE_TAG%
-
+                        docker run -d 
+                        --name %CONTAINER_NAME% -p 8081:%APP_PORT% %DOCKER_IMAGE%:%IMAGE_TAG%
                         docker ps
                     '''
                 }
